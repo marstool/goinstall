@@ -10,10 +10,10 @@ root:
 	@echo ;echo "$${rootText}" ; echo
 
 git :
-	git config --global core.fileMode false
-	git config --global core.editor vim
-	git config --global user.email "you@example.com"
-	git config --global user.name "Your Name"
+	git config --global core.fileMode 				false
+	git config --global core.editor 				vim
+	git config --global user.email 					"you@example.com"
+	git config --global user.name 					"Your Name"
 	git config --global pack.windowMemory           "32m"
 	git config --global pack.packSizeLimit          "33m"
 	git config --global pack.deltaCacheSize         "34m"
@@ -21,7 +21,6 @@ git :
 	git config --global core.packedGitLimit         "35m"
 	git config --global core.packedGitWindowSize    "36m"
 	git config --global http.postbuffer             "5m"
-	git config --global core.fileMode               false
 	git repack -a -d --window-memory 10m --max-pack-size 50m
 
 gitX:
