@@ -145,11 +145,26 @@ ee extract:
 	cd /home/g/gD/ && mv go $(pkgNameBase) 
 	cd /home/g/gD/ && ln -s  $(pkgNameBase)  nowDIR
 
-linkList:=go  godoc  gofmt
+linkList1:=go  godoc  gofmt
+linkList2:=gomobile gobind
 ln link:
 	mkdir -p /home/g/bin/
-	$(foreach aa1,$(linkList),cd /home/g/bin/ && rm -f $(aa1) && ln -s ../gD/nowDIR/bin/$(aa1) ./ $(EOL))
+	$(foreach aa1,$(linkList1),cd /home/g/bin/ && rm -f $(aa1) && ln -s ../gD/nowDIR/bin/$(aa1) ./ $(EOL))
+	$(foreach aa1,$(linkList2),cd /home/g/bin/ && rm -f $(aa1) && ln -s ../go/bin/$(aa1) ./ $(EOL))
+	[ -d /home/g/go ] || (cd /home/gogo/ && mv go /home/g/ )
+	rm -f /home/gogo/go 
+	ln -s /home/g/go/    /home/gogo/go
+	cd /home/g/ && chmod -R g-w .
+	cd /home/g/ && chmod -R o-w .
 	cd /home/g/bin/ && ls -l
+
+gm1 gomobile_install :
+	/home/g/bin/go get -u -v golang.org/x/mobile/cmd/gomobile
+gm2 gomobile_init :
+	/home/g/bin/gomobile init
+
+ndk1 :
+	https://developer.android.com/ndk/downloads/
 
 
 
