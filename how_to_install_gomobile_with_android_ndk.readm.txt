@@ -1,0 +1,49 @@
+
+1.
+goto : 
+    https://developer.android.com/ndk/downloads/
+press download, agree, then,
+download from google : 
+    android-ndk-r16b.zip 
+
+2.
+unzip the android-ndk-r16b.zip , using the following to compressed the files :
+    mksquashfs android-ndk-r16b/ android-ndk-r16b.mksquashfs -comp xz -b 1M -processors 1
+then get : 
+    android-ndk-r16b.mksquashfs          
+3.
+   mount the android NDK src using the following command :
+### see : scriptGO/mount.ndk.sh
+#######################
+umount NdkMount/ &>/dev/null
+umount NdkMount/ &>/dev/null
+mount -o noatime,nodiratime,ro  NowNDK.mksquashfs NdkMount/
+mount |grep NdkMount/
+df -h NdkMount/
+#######################
+
+4.
+after that ,you should :
+   ln -s /home/androidNDK/NdkMount/   /home/ndk_/
+
+5.
+go install mobile using the following, 
+    go get -u -v golang.org/x/mobile/cmd/gomobile
+this step will create a directory :
+    /home/GoTools/_go1.11.2.linux-amd64/GOPATH/pkg/gomobile/
+6.
+using the following cmd to install NDK for gomobile :
+    go/bin/gomobile init -ndk /home/ndk_/
+this step will create a directory :
+    /home/GoTools/_go1.11.2.linux-amd64/GOPATH/pkg/gomobile/ndk-toolchains/
+but this directory is too large , so , need to be compressed.
+7.
+   cd /home/GoTools/_go1.11.2.linux-amd64/GOPATH/pkg/gomobile/ 
+   mksquashfs ndk-toolchains/    ndk-toolchains.mksquashfs     -comp xz -b 1M
+   rm -fr     ndk-toolchains/    
+   mkdir     ndk-toolchains/    
+   mount -o ro,nodiratime,nodiratime     ndk-toolchains.mksquashfs ndk-toolchains/
+8.
+   then :
+       gomobile build -target=android golang.org/x/mobile/example/basic
+   will generate a file named "basic.apk" in current directory.

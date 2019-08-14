@@ -154,8 +154,8 @@ ln link:
 	[ -d /home/g/go ] || (cd /home/gogo/ && mv go /home/g/ )
 	rm -f /home/gogo/go 
 	ln -s /home/g/go/    /home/gogo/go
-	cd /home/g/ && chmod -R g-w .
-	cd /home/g/ && chmod -R o-w .
+	cd /home/g/ && (chmod -R g-w bin gD go  )
+	cd /home/g/ && (chmod -R o-w bin gD go  )
 	cd /home/g/bin/ && ls -l
 
 gm1 gomobile_install :
@@ -163,8 +163,42 @@ gm1 gomobile_install :
 gm2 gomobile_init :
 	/home/g/bin/gomobile init
 
+define ndk1text
+
+https://github.com/golang/go/wiki/Mobile
+
+1. goto	https://developer.android.com/ndk/downloads/
+2. download android-ndk-r20
+3. extract android-ndk-r20
+4. to compress it, use the NdkMount.mksquashfs to compress the directory into img
+   mksquashfs ndk-toolchains/    ndk-toolchains.mksquashfs     -comp xz -b 1M
+
+endef
+export ndk1text
+
 ndk1 :
-	https://developer.android.com/ndk/downloads/
+	@echo "$${ndk1text}"
+
+define sdk1text
+
+https://developer.android.com/studio#Other
+https://dl.google.com/dl/android/studio/ide-zips/3.4.2.0/android-studio-ide-183.5692245-linux.tar.gz
+  wget -c https://dl.google.com/dl/android/studio/ide-zips/3.4.2.0/android-studio-ide-183.5692245-linux.tar.gz
+  tar xfz ../android-studio-ide-183.5692245-linux.tar.gz 
+  mksquashfs android-studio/    android-studio.mksquashfs     -comp xz -b 1M
+  rm android-studio -fr
+  mv android-studio.mksquashfs android-studio-ide-183.5692245-linux.tar.gz.mksquashfs
+  ln -s android-studio-ide-183.5692245-linux.tar.gz.mksquashfs android-studio.mksquashfs
+  rm android-studio-ide-183.5692245-linux.tar.gz
+  mv android-studio* /home/g/androidNDK/
+
+endef
+export sdk1text
+
+sdk1 :
+	@echo "$${sdk1text}"
+
+
 
 
 
@@ -174,3 +208,9 @@ export help_text9
 
 all:
 	@echo "$${help_text9}"
+
+env :
+	@echo
+	export     ANDROID_HOME=/home/g/sdk_
+	export ANDROID_NDK_HOME=/home/g/ndk_
+	@echo
