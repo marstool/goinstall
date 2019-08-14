@@ -1,6 +1,16 @@
 
 $(if $(strip $(shell [ 'root' = $${USER} ] && echo 1 )),$(info you should NOT run by root)$(error xxx))
 
+define EOL
+
+
+endef
+
+#	https://golang.org/dl/
+#	https://dl.google.com/go/go1.12.8.linux-amd64.tar.gz
+verSion:=1.12.8
+pkgNameBase:=go$(verSion).linux-amd64
+pkgNameAll:=$(pkgNameBase).tar.gz
 
 all:
 
@@ -123,6 +133,24 @@ for aa1 in go gofmt ; do echo ln -s /home/g/bin/$${aa1} /bin/ ; done
 
 endef
 export rootText
+
+dd download:
+	wget -c https://dl.google.com/go/go$(verSion).linux-amd64.tar.gz
+ee extract:
+	mkdir -p /home/g/gD/
+	rm -fr   /home/g/gD/$(pkgNameBase) 
+	rm -fr   /home/g/gD/go
+	rm -f    /home/g/gD/nowDIR
+	cat $(pkgNameAll) |gunzip |(cd /home/g/gD/ && tar xf - )
+	cd /home/g/gD/ && mv go $(pkgNameBase) 
+	cd /home/g/gD/ && ln -s  $(pkgNameBase)  nowDIR
+
+linkList:=go  godoc  gofmt
+ln link:
+	mkdir -p /home/g/bin/
+	$(foreach aa1,$(linkList),cd /home/g/bin/ && rm -f $(aa1) && ln -s ../gD/nowDir/$(aa1) ./ $(EOL))
+	cd /home/g/bin/ && ls -l
+
 
 
 
