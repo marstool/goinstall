@@ -148,7 +148,7 @@ ee extract:
 linkList:=go  godoc  gofmt
 ln link:
 	mkdir -p /home/g/bin/
-	$(foreach aa1,$(linkList),cd /home/g/bin/ && rm -f $(aa1) && ln -s ../gD/nowDir/$(aa1) ./ $(EOL))
+	$(foreach aa1,$(linkList),cd /home/g/bin/ && rm -f $(aa1) && ln -s ../gD/nowDIR/bin/$(aa1) ./ $(EOL))
 	cd /home/g/bin/ && ls -l
 
 
