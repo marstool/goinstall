@@ -158,9 +158,13 @@ ln link:
 	cd /home/g/ && (chmod -R o-w bin gD go  )
 	cd /home/g/bin/ && ls -l
 
-gm1 gomobile_install :
+gm11 gomobile_install :
 	/home/g/bin/go get -u -v golang.org/x/mobile/cmd/gomobile
-gm2 gomobile_init :
+	/home/g/bin/go get -u -v golang.org/x/mobile/cmd/gobind
+gm12 go_used_in_lightsock:
+	/home/g/bin/go get -u -v github.com/mitchellh/go-homedir
+	/home/g/bin/go get -u -v github.com/phayes/freeport
+gm51 gomobile_init :
 	/home/g/bin/gomobile init
 
 define ndk1text

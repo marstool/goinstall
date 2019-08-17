@@ -2,7 +2,7 @@
 
 cd     /home/g/androidNDK
 
-for aa1 in NdkMount ndk-toolchains
+for aa1 in NdkMount SdkMount ndk-toolchains
 do
     umount ${aa1}/ &>/dev/null
     umount ${aa1}/ &>/dev/null
