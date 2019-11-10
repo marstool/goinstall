@@ -164,8 +164,18 @@ gm11 gomobile_install :
 gm12 go_used_in_lightsock:
 	/home/g/bin/go get -u -v github.com/mitchellh/go-homedir
 	/home/g/bin/go get -u -v github.com/phayes/freeport
+gm13 go_used_in_jackal:
+	# error : opt.Dir
+	#/home/g/bin/go get -u -v github.com/ortuman/jackal
+gm14 go_mongoDB:
+	#/home/g/bin/go get -u -v go.mongodb.org/mongo-driver
+	# https://dev.to/eduardohitek/mongodb-golang-driver-tutorial-49e5
+	/home/g/bin/go get -u -v go.mongodb.org/mongo-driver/mongo
 gm51 gomobile_init :
 	/home/g/bin/gomobile init
+
+gmOK:= gm11 gm12 gm51
+gmOK: $(gmOK)
 
 define ndk1text
 
@@ -211,7 +221,10 @@ help_text9=$(if $(help_textTV),$(help_textTV),$(if $(help_textHU),$(help_textHU)
 export help_text9
 
 all:
+	@echo
 	@echo "$${help_text9}"
+	@echo "gmOK -> $(gmOK)"
+	@echo
 
 env :
 	@echo
