@@ -8,7 +8,13 @@ endef
 
 #	https://golang.org/dl/
 #	https://dl.google.com/go/go1.12.8.linux-amd64.tar.gz
+#	https://dl.google.com/go/go1.13.4.linux-amd64.tar.gz
+#	https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-18-04
+#   /etc/mongodb.conf : bind_ip , port
+#   https://docs.mongodb.com/manual/installation/#mongodb-supported-platforms
+#   #
 verSion:=1.12.8
+verSion:=1.13.4
 pkgNameBase:=go$(verSion).linux-amd64
 pkgNameAll:=$(pkgNameBase).tar.gz
 
@@ -171,10 +177,12 @@ gm14 go_mongoDB:
 	#/home/g/bin/go get -u -v go.mongodb.org/mongo-driver
 	# https://dev.to/eduardohitek/mongodb-golang-driver-tutorial-49e5
 	/home/g/bin/go get -u -v go.mongodb.org/mongo-driver/mongo
+tt14 test_mongo_version:
+	mongo --eval 'db.runCommand({ connectionStatus: 1 })'
 gm51 gomobile_init :
 	/home/g/bin/gomobile init
 
-gmOK:= gm11 gm12 gm51
+gmOK:= gm11 gm12 gm14 gm51
 gmOK: $(gmOK)
 
 define ndk1text
